@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" 
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+    
+    <LinearLayout
+        android:orientation="horizontal"        
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+        
+        <EditText android:id="@+id/textData"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" >
+            <requestFocus />
+        </EditText>
+        
+        <EditText android:id="@+id/stringId"
+            android:inputType="numberDecimal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="3" />           
+        
+    </LinearLayout>
+    
+        
+	<TableLayout
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content" >	  
+	    
+        <TableRow>
+            
+         <Button
+            android:id="@+id/readBtn"
+            android:padding="15dip"
+            android:text="Read GAE" />
+
+        <Button
+            android:id="@+id/writeBtn"
+            android:padding="15dip"
+            android:text="Write GAE" />
+            
+        <Button
+            android:id="@+id/deleteBtn"
+            android:padding="15dip"
+            android:text="Remove GAE" />  
+                                   
+        </TableRow>  
+                          
+	</TableLayout>
+	
+</LinearLayout>
