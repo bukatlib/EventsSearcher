@@ -1,0 +1,105 @@
+package cz.cvut.felk.via.data;
+
+import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
+
+/**
+ * @author Libor Bukata
+ * Base data class of event.
+ */
+public class Event implements Serializable {
+
+	private static final long serialVersionUID = 4674383743754L;
+
+    private Long id;
+
+    private String eventOrganiser;
+
+    private String shortDescription;
+
+    private String longDescription;
+
+    private Date startEvent;
+
+    private Date stopEvent;
+
+    private Double latitude;
+
+    private Double longitude;
+
+    private List<CommentInfo> comments;
+
+    
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getEventOrganiser() {
+		return eventOrganiser;
+	}
+
+	public void setEventOrganiser(String eventOrganiser) {
+		this.eventOrganiser = eventOrganiser;
+	}
+
+	public String getShortDescription() {
+		return shortDescription;
+	}
+
+	public void setShortDescription(String shortDescription) {
+		this.shortDescription = shortDescription;
+	}
+
+	public String getLongDescription() {
+		return longDescription;
+	}
+
+	public void setLongDescription(String longDescription) {
+		this.longDescription = longDescription;
+	}
+
+	public Date getStartEvent() {
+		return startEvent;
+	}
+
+	public void setStartEvent(Date startEvent) {
+		this.startEvent = startEvent;
+	}
+
+	public Date getStopEvent() {
+		return stopEvent;
+	}
+
+	public void setStopEvent(Date stopEvent) {
+		this.stopEvent = stopEvent;
+	}
+
+	public Double getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(Double latitude) {
+		this.latitude = latitude;
+	}
+
+	public Double getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(Double longitude) {
+		this.longitude = longitude;
+	}
+
+	public List<CommentInfo> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<CommentInfo> comments) {
+		this.comments = comments;
+	}   
+}
