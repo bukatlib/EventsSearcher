@@ -10,7 +10,7 @@ import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
 /**
- * @author libor
+ * @author Libor Bukata
  * Base data class of event.
  */
 @PersistenceCapable

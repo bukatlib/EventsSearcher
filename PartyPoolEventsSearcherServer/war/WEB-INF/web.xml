@@ -4,15 +4,42 @@ xmlns="http://java.sun.com/xml/ns/javaee"
 xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
 http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+
+	<display-name>EventsSearcher</display-name>
+  	
+	<context-param>
+		<param-name>log4jConfigLocation</param-name>
+		<param-value>WEB-INF/classes/log4j.properties</param-value>
+	</context-param>
+
 	<servlet>
-		<servlet-name>PartyPoolEventsSearcherServer</servlet-name>
+		<servlet-name>HelloWorldServlet</servlet-name>
 		<servlet-class>cz.cvut.felk.via.gae.PartyPoolEventsSearcherServerServlet</servlet-class>
 	</servlet>
+	
+	<servlet>
+		<servlet-name>EventsRestlet</servlet-name>
+		<servlet-class>
+			org.restlet.ext.servlet.ServerServlet
+		</servlet-class>
+		<init-param>
+			<param-name>org.restlet.application</param-name>
+			<param-value>cz.cvut.felk.via.resources.server.StartServer</param-value>
+		</init-param>
+	</servlet>
+	
 	<servlet-mapping>
-		<servlet-name>PartyPoolEventsSearcherServer</servlet-name>
-		<url-pattern>/partypooleventssearcherserver</url-pattern>
+		<servlet-name>EventsRestlet</servlet-name>
+		<url-pattern>/*</url-pattern>
 	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>HelloWorldServlet</servlet-name>
+		<url-pattern>/hello</url-pattern>
+	</servlet-mapping>	
+	
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>
+	
 </web-app>

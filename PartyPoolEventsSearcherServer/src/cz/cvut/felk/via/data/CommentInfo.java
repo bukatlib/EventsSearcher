@@ -8,7 +8,7 @@ import javax.jdo.annotations.Persistent;
 
 /**
  * Store one user comment.
- * @author libor
+ * @author Libor Bukata
  */
 @PersistenceCapable
 public class CommentInfo implements Serializable {

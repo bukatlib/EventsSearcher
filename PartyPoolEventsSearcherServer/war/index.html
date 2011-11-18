@@ -7,21 +7,74 @@
 <!-- but may lead to some differences in layout.   -->
 
 <html>
-  <head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <title>Hello App Engine</title>
-  </head>
 
-  <body>
-    <h1>Hello App Engine!</h1>
-	
-    <table>
-      <tr>
-        <td colspan="2" style="font-weight:bold;">Available Servlets:</td>        
-      </tr>
-      <tr>
-        <td><a href="partypooleventssearcherserver">PartyPoolEventsSearcherServer</a></td>
-      </tr>
-    </table>
-  </body>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<title>PartyPool</title>
+</head>
+
+<body>
+	<h1 style="text-align: left;"><span style="color: rgb(102, 0, 204);">REST services</span></h1>
+	<br>
+	<table style="text-align: left; width: 100%;" border="3" cellpadding="2" cellspacing="2">
+	<tbody>
+    	<tr>
+      		<td style="vertical-align: top; background-color: rgb(204, 204, 255);">
+				List&lt;Event&gt;findEvents()
+      		</td>
+      		<td style="vertical-align: top; text-align: center; background-color: rgb(204, 204, 255);">
+				-
+      		</td>
+      		<td style="vertical-align: top; background-color: rgb(204, 204, 255);">
+				Find events by your search parameters (sended through URL).
+      		</td>
+    	</tr>
+    	<tr>
+      		<td style="vertical-align: top; background-color: rgb(204, 204, 255);">
+				boolean addEvent(Event e)
+      		</td>
+      		<td style="vertical-align: top; text-align: center; background-color: rgb(204, 204, 255);">
+				-
+      		</td>
+      		<td style="vertical-align: top; background-color: rgb(204, 204, 255);">
+				Add event e if possible else return false.
+      		</td>
+    	</tr>
+    	<tr>
+      		<td style="vertical-align: top; background-color: rgb(204, 204, 255);">
+				boolean updateEvent(Event e)
+      		</td>
+      		<td style="vertical-align: top; text-align: center; background-color: rgb(204, 204, 255);">
+				-
+      		</td>
+      		<td style="vertical-align: top; background-color: rgb(204, 204, 255);">
+				Update event e if possible else return false.
+      		</td>
+    	</tr>
+    	<tr>
+      		<td style="vertical-align: top; background-color: rgb(204, 204, 255);">
+				Integer deleteEvents()
+      		</td>
+      		<td style="vertical-align: top; text-align: center; background-color: rgb(204, 204, 255);">
+				-
+      		</td>
+      		<td style="vertical-align: top; background-color: rgb(204, 204, 255);">
+				Delete events by search parameters. Return number of erased events.
+      		</td>
+    	</tr>
+    	<tr>
+      		<td style="vertical-align: top; background-color: rgb(255, 255, 153);">
+				void hello()
+      		</td>
+      		<td style="vertical-align: top; text-align: center; background-color: rgb(255, 255, 153);">
+				<a href="hello">Test "Hello, World!"</a>
+      		</td>
+      		<td style="vertical-align: top; background-color: rgb(255, 255, 153);">
+				Print message "Hello, world!".
+      		</td>
+    	</tr>
+	</tbody>
+	</table>
+</body>
+
 </html>
