@@ -38,10 +38,10 @@ public class Event implements Serializable {
     private Date stopEvent;
     
     @Persistent
-    private Double latitude;
+    private Long latitude;
     
     @Persistent
-    private Double longitude;
+    private Long longitude;
     
     @Persistent
     private List<CommentInfo> comments;
@@ -95,19 +95,19 @@ public class Event implements Serializable {
 		this.stopEvent = stopEvent;
 	}
 
-	public Double getLatitude() {
+	public Long getLatitude() {
 		return latitude;
 	}
 
-	public void setLatitude(Double latitude) {
+	public void setLatitude(Long latitude) {
 		this.latitude = latitude;
 	}
 
-	public Double getLongitude() {
+	public Long getLongitude() {
 		return longitude;
 	}
 
-	public void setLongitude(Double longitude) {
+	public void setLongitude(Long longitude) {
 		this.longitude = longitude;
 	}
 

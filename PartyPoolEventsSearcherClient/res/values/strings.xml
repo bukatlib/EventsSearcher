@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <string name="hello">Hello World, PartyPoolEventsSearcherClientActivity!</string>
     <string name="app_name">EventsSearcher</string>
-    <string name="from_date">From date:</string>
-    <string name="to_date">To date:</string>
-
+    
+    <string name="search_tab_name">Search events</string>
+    <string name="from_date">Pick from date</string>
+    <string name="to_date">Pick to date</string>    
 </resources>
