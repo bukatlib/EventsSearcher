@@ -10,6 +10,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.view.Window;
 
 /**
  * Base of tab activity.
@@ -21,6 +22,8 @@ public class EventsSearcher extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
+        
         // Application navigation.
         final ActionBar bar = getActionBar();
         bar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -32,8 +35,14 @@ public class EventsSearcher extends Activity {
         searchTab.setText(this.getResources().getString(R.string.search_tab_name));
         searchTab.setTabListener(new TabListener<SearchTab>(this, "search", SearchTab.class));
         
+        // Create add event tab.
+        ActionBar.Tab addEventTab = bar.newTab();
+        addEventTab.setText(this.getResources().getString(R.string.add_tab_name));
+        addEventTab.setTabListener(new TabListener<AddEventTab>(this,"addEvent", AddEventTab.class));
+        
         // Add tabs.
         bar.addTab(searchTab);
+        bar.addTab(addEventTab);
 
         // Display last selected tab.
         if (savedInstanceState != null) {
@@ -86,13 +95,15 @@ public class EventsSearcher extends Activity {
         	if (mFragment == null)	{
         		// Tab wasn't created yet. New instance have to be created.
         		mFragment = Fragment.instantiate(mActivity, mClass.getName(), mArgs);
+        		ft.add(android.R.id.content, mFragment, mTag);
+        	} else {
+        		ft.add(android.R.id.content, mFragment, mTag); // attach
         	}
-        	ft.add(android.R.id.content, mFragment, mTag);
         }
 
         public void onTabUnselected(Tab tab, FragmentTransaction ft) {
             if (mFragment != null) {
-                ft.remove(mFragment);           
+                ft.remove(mFragment);	// detach
             }
         }
 

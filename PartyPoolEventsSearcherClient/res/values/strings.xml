@@ -2,7 +2,30 @@
 <resources>
     <string name="app_name">EventsSearcher</string>
     
+    <!-- Search events tab. -->
     <string name="search_tab_name">Search events</string>
     <string name="from_date">Pick from date</string>
     <string name="to_date">Pick to date</string>    
+    <string name="organiser">Organiser:</string>
+    <string name="description">Event description:</string>
+    <string name="find_button_text">Find events!</string>
+    <string name="list_events_title">Finded events</string>
+    
+    <!-- Add event tab. -->
+    <string name="add_tab_name">Add event</string>
+    <string-array name="category_select">
+        <item>CVUT lecture</item>
+        <item>Tea party</item>
+        <item>Sport event</item>
+        <item>Music event</item>
+    </string-array>
+    <string name="category_description">Select category:</string>
+    <string name="pick_date">Pick date</string>
+    <string name="pick_time">Pick time</string>
+    <string name="event_start">Start event date:</string>
+    <string name="event_stop">End event date:</string>
+    <string name="short_description">Short description of event:</string>
+    <string name="long_description">Details of event:</string>
+    <string name="add_event_button">Add event to database!</string>
+    
 </resources>

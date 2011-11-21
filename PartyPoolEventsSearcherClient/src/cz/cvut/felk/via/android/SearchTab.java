@@ -6,28 +6,25 @@ import java.util.Date;
 import android.app.DatePickerDialog;
 import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
+import android.widget.EditText;
+import android.widget.Toast;
 
-public class SearchTab extends Fragment {
+public class SearchTab extends Fragment implements OnClickListener {
 
 	private Date fromDate, toDate;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		if (savedInstanceState != null)	{
-			// Restore tab state.
-			if (savedInstanceState.containsKey("SeachTabState"))	{
-				SearchTabSaveState state = savedInstanceState.getParcelable("SeachTabState");
-				fromDate = state.getFromDate();
-				toDate = state.getToDate();
-			}
-		}
+		Log.i("SearchTab","onCreate");
 	}
 
 	@Override
@@ -37,6 +34,7 @@ public class SearchTab extends Fragment {
         
         Button pickFromDate = (Button) v.findViewById(R.id.pick_from_date);
         Button pickToDate = (Button) v.findViewById(R.id.pick_to_date);
+        Button findButton = (Button) v.findViewById(R.id.find_button);
 
         pickFromDate.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -66,27 +64,46 @@ public class SearchTab extends Fragment {
 			}
 		});
         
+        findButton.setOnClickListener(this);      
+        
+        Log.i("SearchTab", "onCreateView");
+        
         return v;
 	}
 	
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
+		// Restore fragment setting.
+		if (savedInstanceState != null)	{
+			if (savedInstanceState.containsKey("SeachTabState"))	{
+				SearchTabSaveState state = savedInstanceState.getParcelable("SeachTabState");
+				fromDate = state.getFromDate();
+				toDate = state.getToDate();
+				((EditText) getView().findViewById(R.id.organiser_text)).setText(state.getOrganiser());
+				((EditText) getView().findViewById(R.id.description_text)).setText(state.getEventDescription());
+				Log.i("SearchTab", "state restored");
+			}
+		}  		
 		if (fromDate != null)	{
 			updateDateText(fromDate, 1);
 		}
 		if (toDate != null)	{
 			updateDateText(toDate, 2);
 		}
+		Log.i("SearchTab", "onActivityCreated");
 	}
 	
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
-		SearchTabSaveState tabData = new SearchTabSaveState(fromDate, toDate);
+		String organiser = ((EditText) getView().findViewById(R.id.organiser_text)).getText().toString();
+		String description = ((EditText) getView().findViewById(R.id.description_text)).getText().toString();
+		SearchTabSaveState tabData = new SearchTabSaveState(fromDate, toDate, organiser, description);
 		outState.putParcelable("SeachTabState", tabData);
+		Log.i("SearchTab", "onSaveInstaceState");
 	}
-
+	
 	private DatePickerDialog.OnDateSetListener mDateSetListener1 = new DatePickerDialog.OnDateSetListener() {
 		public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
 			fromDate = new Date(year, monthOfYear, dayOfMonth);
@@ -113,5 +130,10 @@ public class SearchTab extends Fragment {
 		}
 		
 		dateLabel.setText(date.getDate()+"."+(date.getMonth()+1)+"."+date.getYear());
+	}
+
+	@Override
+	public void onClick(View v) {
+		Toast.makeText(this.getActivity(), "Find button clicked!", Toast.LENGTH_LONG).show();
 	}	
 }

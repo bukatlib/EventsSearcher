@@ -1,48 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" 
+    android:layout_height="match_parent"
     android:paddingTop="10dip" >
 
     <FrameLayout
         android:layout_width="fill_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="fill_parent" >
 
-        <TableLayout
+        <LinearLayout 
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
 
-			<TableRow>
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:stretchColumns="1" >
 
-                <Button
-                    android:id="@+id/pick_from_date"
-                    android:text="@string/from_date" />
-                
-                <TextView
-                    android:id="@+id/from_date"
-                    android:minWidth="160dp"
-					android:maxWidth="160dp"
-                    android:gravity="center_vertical|center_horizontal"
-                    android:maxLines="1">
-                </TextView>
-                   
-            </TableRow>
+                <TableRow >
 
-			<TableRow>
-                <Button
-                    android:id="@+id/pick_to_date"
-                    android:text="@string/to_date" />
+                    <Button
+                        android:id="@+id/pick_from_date"
+                        android:text="@string/from_date" />
 
-                <TextView
-                    android:id="@+id/to_date"
-                    android:minWidth="160dp"
-					android:maxWidth="160dp"
-                    android:gravity="center_vertical|center_horizontal"
-                    android:maxLines="1">                    
-                </TextView>                  
-                                  
-        	</TableRow>
-        </TableLayout>
+                    <TextView
+                        android:id="@+id/from_date"
+                        android:gravity="center_vertical|left"
+                        android:maxLines="1"
+                        android:paddingLeft="10dip" >
+                    </TextView>
+                </TableRow>
+
+                <TableRow >
+
+                    <Button
+                        android:id="@+id/pick_to_date"
+                        android:text="@string/to_date" />
+
+                    <TextView
+                        android:id="@+id/to_date"
+                        android:gravity="center_vertical|left"
+                        android:maxLines="1"
+                        android:paddingLeft="10dip" >
+                    </TextView>
+                </TableRow>
+
+                <TableRow >
+
+                    <TextView
+                        android:id="@+id/text_view_organiser"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right|center_vertical"
+                        android:paddingRight="5dip"
+                        android:text="@string/organiser"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                    <EditText
+                        android:id="@+id/organiser_text"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_gravity="left|center_vertical"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:inputType="text" >
+                    </EditText>
+                </TableRow>
+
+                <TableRow >
+
+                    <TextView
+                        android:id="@+id/text_view_description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right|center_vertical"
+                        android:paddingRight="5dip"
+                        android:text="@string/description"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                    <EditText
+                        android:id="@+id/description_text"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_gravity="left|center_vertical"
+                        android:singleLine="false"
+                        android:maxLines="3"
+                        android:inputType="text" >
+                    </EditText>
+                </TableRow>
+
+                <TableRow >
+
+                    <Button
+                        android:id="@+id/find_button"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_span="2"
+                        android:background="#36B342"
+                        android:layout_marginTop="10dip"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:text="@string/find_button_text"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="#FF0000" />
+                </TableRow>
+            </TableLayout>
+        
+     <!--     <TextView
+                android:id="@+id/finded_events_title"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="30dip"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="@string/list_events_title"
+                android:textColor="#FFFF00"
+                android:textAppearance="?android:attr/textAppearanceMedium" /> -->
+            <View
+                android:layout_width="fill_parent"
+				android:layout_height="4dip"
+				android:layout_marginTop="15dip"
+				android:background="#FFFFFF" />
+            
+            <ListView
+                android:id="@+id/finded_events_list"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:padding="10dip" />
+        </LinearLayout>
+        
     </FrameLayout>
 
 </ScrollView>

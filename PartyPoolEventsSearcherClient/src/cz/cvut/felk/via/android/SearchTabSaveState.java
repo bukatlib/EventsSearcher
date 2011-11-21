@@ -8,6 +8,7 @@ import android.os.Parcelable;
 public class SearchTabSaveState implements Parcelable {
 	
 	private Date fromDate, toDate;
+	private String organiser, eventDescription;
 
 	public static final Parcelable.Creator<SearchTabSaveState> CREATOR = new Parcelable.Creator<SearchTabSaveState>() {
 
@@ -21,15 +22,19 @@ public class SearchTabSaveState implements Parcelable {
 
     };	
     
-    public SearchTabSaveState(Date from, Date to)	{
+    public SearchTabSaveState(Date from, Date to, String org, String eventDesc)	{
     	fromDate = from;
     	toDate = to;
+    	organiser = org;
+    	eventDescription = eventDesc;
     }
     
     public SearchTabSaveState(Parcel source){
-        // Retrieve saved data.
+        // Retrieve saved data. (what if Date is null?)
     	fromDate = (Date) source.readValue(Date.class.getClassLoader());
     	toDate = (Date) source.readValue(Date.class.getClassLoader());
+    	organiser = source.readString();
+    	eventDescription = source.readString();
     }
 	
 	@Override
@@ -43,6 +48,8 @@ public class SearchTabSaveState implements Parcelable {
 		// Save data.
 		dest.writeValue(fromDate);
 		dest.writeValue(toDate);
+		dest.writeString(organiser);
+		dest.writeString(eventDescription);
 	}
 	
     public Date getFromDate() {
@@ -59,5 +66,21 @@ public class SearchTabSaveState implements Parcelable {
 
 	public void setToDate(Date toDate) {
 		this.toDate = toDate;
+	}
+
+	public void setOrganiser(String organiser) {
+		this.organiser = organiser;
+	}
+
+	public String getOrganiser() {
+		return organiser;
+	}
+
+	public void setEventDescription(String eventDescription) {
+		this.eventDescription = eventDescription;
+	}
+
+	public String getEventDescription() {
+		return eventDescription;
 	}	
 }

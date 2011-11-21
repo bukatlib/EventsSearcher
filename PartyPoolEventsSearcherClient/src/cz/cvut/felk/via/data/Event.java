@@ -15,6 +15,8 @@ public class Event implements Serializable {
     private Long id;
 
     private String eventOrganiser;
+    
+    private String category;
 
     private String shortDescription;
 
@@ -101,5 +103,13 @@ public class Event implements Serializable {
 
 	public void setComments(List<CommentInfo> comments) {
 		this.comments = comments;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+	public String getCategory() {
+		return category;
 	}   
 }

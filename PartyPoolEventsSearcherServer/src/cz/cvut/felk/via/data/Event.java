@@ -26,6 +26,9 @@ public class Event implements Serializable {
     private String eventOrganiser;
     
     @Persistent
+    private String category;
+    
+    @Persistent
     private String shortDescription;
     
     @Persistent
@@ -117,5 +120,13 @@ public class Event implements Serializable {
 
 	public void setComments(List<CommentInfo> comments) {
 		this.comments = comments;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+	public String getCategory() {
+		return category;
 	}   
 }

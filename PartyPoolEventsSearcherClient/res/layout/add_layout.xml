@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="10dip"
+        android:stretchColumns="1" >
+
+        <TableRow >
+
+            <TextView
+                android:id="@+id/text_view_cagegory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|center_vertical"
+                android:padding="10dip"
+                android:text="@string/category_description"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <Spinner
+                android:id="@+id/category_spinner"
+                android:padding="10dip"
+                android:layout_width="0dp"
+                android:prompt="@string/category_description" />
+        </TableRow>        
+        
+        <TableRow >
+
+            <TextView
+                android:id="@+id/text_view_from"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|center_vertical"
+                android:padding="10dip"
+                android:text="@string/event_start"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <Button
+                android:id="@+id/add_from_date"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="@string/pick_date" />
+
+            <Button
+                android:id="@+id/add_from_time"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="@string/pick_time" />
+        </TableRow>
+
+        <TableRow >
+
+            <TextView
+                android:id="@+id/text_view_to"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|center_vertical"
+                android:padding="10dip"
+                android:text="@string/event_stop"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <Button
+                android:id="@+id/add_to_date"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="@string/pick_date" />
+
+            <Button
+                android:id="@+id/add_to_time"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="@string/pick_time" />
+        </TableRow>
+
+        <TableRow >
+
+            <TextView
+                android:id="@+id/text_view_short"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|center_vertical"
+                android:padding="10dip"
+                android:text="@string/short_description"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/short_description_text"
+                android:layout_width="0dp"
+                android:layout_gravity="left|center_vertical"
+                android:layout_weight="1"
+                android:inputType="text"
+                android:maxLines="1"
+                android:singleLine="true" >
+            </EditText>
+        </TableRow>
+
+        <TableRow >
+
+            <TextView
+                android:id="@+id/text_view_long"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|center_vertical"
+                android:padding="10dip"
+                android:text="@string/long_description"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/long_description_text"
+                android:layout_width="0dp"
+                android:layout_gravity="left|center_vertical"
+                android:layout_weight="1"
+                android:inputType="text"
+                android:singleLine="false"
+                android:lines="3" >
+            </EditText>
+        </TableRow>
+
+        <TableRow >
+            <Button
+                android:id="@+id/add_button"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_span="2"
+                android:background="#36B342"
+                android:layout_marginTop="10dip"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="@string/add_event_button"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#FF0000" />
+        </TableRow>
+    </TableLayout>
+
+</LinearLayout>
