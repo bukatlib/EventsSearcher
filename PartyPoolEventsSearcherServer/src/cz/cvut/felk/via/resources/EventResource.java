@@ -3,7 +3,7 @@
  */
 package cz.cvut.felk.via.resources;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import org.restlet.resource.Delete;
 import org.restlet.resource.Get;
@@ -23,7 +23,7 @@ public interface EventResource {
 	 * @return Query list of events.
 	 */
 	@Get
-	public List<Event> findEvents();
+	public ArrayList<Event> findEvents();
 	
 	/**
 	 * Add event if not exist.

@@ -96,19 +96,21 @@ public class EventsSearcher extends Activity {
         		// Tab wasn't created yet. New instance have to be created.
         		mFragment = Fragment.instantiate(mActivity, mClass.getName(), mArgs);
         		ft.add(android.R.id.content, mFragment, mTag);
-        	} else {
+        	} else if (!mFragment.isAdded()) {
         		ft.add(android.R.id.content, mFragment, mTag); // attach
         	}
         }
 
         public void onTabUnselected(Tab tab, FragmentTransaction ft) {
-            if (mFragment != null) {
-                ft.remove(mFragment);	// detach
+            if (mFragment != null && mFragment.isAdded()) {
+            	ft.remove(mFragment);	// detach
             }
         }
 
         public void onTabReselected(Tab tab, FragmentTransaction ft) {
-            // Nothing to do.
+       /*     if (mFragment != null && mFragment.isAdded())	{
+            	ft.replace(android.R.id.content, mFragment, mTag);
+            }*/
         }
     }
 }

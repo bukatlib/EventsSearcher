@@ -1,8 +1,8 @@
 package cz.cvut.felk.via.data;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 /**
  * @author Libor Bukata
@@ -30,7 +30,7 @@ public class Event implements Serializable {
 
     private Long longitude;
 
-    private List<CommentInfo> comments;
+    private ArrayList<CommentInfo> comments;
 
     
 	public Long getId() {
@@ -97,11 +97,11 @@ public class Event implements Serializable {
 		this.longitude = longitude;
 	}
 
-	public List<CommentInfo> getComments() {
+	public ArrayList<CommentInfo> getComments() {
 		return comments;
 	}
 
-	public void setComments(List<CommentInfo> comments) {
+	public void setComments(ArrayList<CommentInfo> comments) {
 		this.comments = comments;
 	}
 

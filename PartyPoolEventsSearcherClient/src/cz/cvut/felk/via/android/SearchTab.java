@@ -1,18 +1,25 @@
 package cz.cvut.felk.via.android;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import cz.cvut.felk.via.data.Event;
+import cz.cvut.felk.via.resources.EventResource;
+
 import android.app.DatePickerDialog;
 import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -65,6 +72,21 @@ public class SearchTab extends Fragment implements OnClickListener {
 		});
         
         findButton.setOnClickListener(this);      
+        
+        RestConnection connection = new RestConnection(this.getActivity());
+        connection.createClientResource();
+        EventResource resource = connection.getEventResource();
+        ArrayList<Event> events;
+        if (resource != null)	{
+        	events = resource.findEvents();
+        } else {
+        	events = new ArrayList<Event>();
+        }      
+        
+        if (events != null)	{
+        	ListView lv = (ListView) v.findViewById(R.id.finded_events_list);
+        	lv.setAdapter(new EventAdapter(this.getActivity(), events));
+        }
         
         Log.i("SearchTab", "onCreateView");
         
@@ -136,4 +158,47 @@ public class SearchTab extends Fragment implements OnClickListener {
 	public void onClick(View v) {
 		Toast.makeText(this.getActivity(), "Find button clicked!", Toast.LENGTH_LONG).show();
 	}	
+	
+	class EventAdapter extends ArrayAdapter<Event> {
+		
+		private Context context;
+		private ArrayList<Event> foundEvents;
+
+		public EventAdapter(Context context, ArrayList<Event> events) {
+			super(context, R.layout.event_row, events);
+			foundEvents = events; this.context = context;
+		}
+		
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			View row;
+			if (convertView == null)	{
+				LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+				row = inflater.inflate(R.layout.event_row, null);
+				Button btn = (Button) row.findViewById(R.id.row_show_detail);
+				btn.setId(position);
+				btn.setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						Toast.makeText(context, "Hello!", Toast.LENGTH_LONG).show();
+					}
+				});
+				if (position < foundEvents.size())	{
+					TextView organiser = (TextView) row.findViewById(R.id.row_organiser);
+					organiser.setText(foundEvents.get(position).getEventOrganiser());
+					TextView category = (TextView) row.findViewById(R.id.row_category);
+					category.setText(foundEvents.get(position).getCategory());
+					TextView startDate = (TextView) row.findViewById(R.id.row_start_date);
+					startDate.setText(foundEvents.get(position).getStartEvent().toLocaleString());
+					TextView shortDescription = (TextView) row.findViewById(R.id.row_short_desc);
+					shortDescription.setText(foundEvents.get(position).getShortDescription());
+				}
+			} else {
+				row = convertView;
+			}
+			
+			
+			return row;
+		}
+	}
 }

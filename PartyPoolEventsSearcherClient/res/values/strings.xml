@@ -27,5 +27,6 @@
     <string name="short_description">Short description of event:</string>
     <string name="long_description">Details of event:</string>
     <string name="add_event_button">Add event to database!</string>
+    <string name="show_detail">Show details</string>
     
 </resources>
