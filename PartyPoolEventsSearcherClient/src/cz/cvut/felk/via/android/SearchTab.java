@@ -11,6 +11,8 @@ import android.app.DatePickerDialog;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,9 +26,12 @@ import android.widget.TextView;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class SearchTab extends Fragment implements OnClickListener {
+public class SearchTab extends Fragment implements OnClickListener, Runnable {
 
 	private Date fromDate, toDate;
+	private ArrayList<Event> foundEvents = new ArrayList<Event>();	
+	
+	private ListView listView;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -73,21 +78,7 @@ public class SearchTab extends Fragment implements OnClickListener {
         
         findButton.setOnClickListener(this);      
         
-        RestConnection connection = new RestConnection(this.getActivity());
-        connection.createClientResource();
-        EventResource resource = connection.getEventResource();
-        ArrayList<Event> events;
-        if (resource != null)	{
-        	events = resource.findEvents();
-        } else {
-        	events = new ArrayList<Event>();
-        }      
-        
-        if (events != null)	{
-        	ListView lv = (ListView) v.findViewById(R.id.finded_events_list);
-        	lv.setAdapter(new EventAdapter(this.getActivity(), events));
-        }
-        
+        listView = (ListView) v.findViewById(R.id.finded_events_list);
         Log.i("SearchTab", "onCreateView");
         
         return v;
@@ -156,17 +147,18 @@ public class SearchTab extends Fragment implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
-		Toast.makeText(this.getActivity(), "Find button clicked!", Toast.LENGTH_LONG).show();
+	//	Toast.makeText(this.getActivity(), "Find button clicked!", Toast.LENGTH_LONG).show();
+		Thread findEvents = new Thread(this);
+        findEvents.start();
 	}	
 	
 	class EventAdapter extends ArrayAdapter<Event> {
 		
 		private Context context;
-		private ArrayList<Event> foundEvents;
 
-		public EventAdapter(Context context, ArrayList<Event> events) {
-			super(context, R.layout.event_row, events);
-			foundEvents = events; this.context = context;
+		public EventAdapter(Context context) {
+			super(context, R.layout.event_row, foundEvents);
+			this.context = context;
 		}
 		
 		@Override
@@ -197,8 +189,27 @@ public class SearchTab extends Fragment implements OnClickListener {
 				row = convertView;
 			}
 			
-			
 			return row;
 		}
+	}
+	
+	Handler handler = new Handler()	{
+		@Override
+		public void handleMessage(Message msg)	{
+			listView.setAdapter(new EventAdapter(SearchTab.this.getActivity()));
+		}
+	};
+
+	@Override
+	public void run() {
+        RestConnection connection = new RestConnection(this.getActivity());
+        connection.createClientResource();
+        EventResource resource = connection.getEventResource();
+        if (resource != null)	{
+        	foundEvents = resource.findEvents();
+            if (foundEvents != null)	{
+            	handler.sendMessage(handler.obtainMessage());
+            }
+        }
 	}
 }

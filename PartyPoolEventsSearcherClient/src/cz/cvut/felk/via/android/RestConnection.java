@@ -24,10 +24,11 @@ public class RestConnection {
 		try {
 			clientResource = new ClientResource(ServiceURL);
 			clientResource.setRequestEntityBuffering(true);	// Workaround GAE bug.
+			clientResource.setResponseEntityBuffering(true);
 			setEventResource(clientResource.wrap(EventResource.class));
 		} catch (Exception e) {
 			setClientResource(null); setEventResource(null);
-        	Toast.makeText(context,e.getMessage(),Toast.LENGTH_LONG).show();
+        	Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
         }       			
 	}
 
