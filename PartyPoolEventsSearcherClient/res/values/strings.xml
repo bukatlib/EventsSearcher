@@ -10,6 +10,12 @@
     <string name="description">Event description:</string>
     <string name="find_button_text">Find events!</string>
     <string name="list_events_title">Finded events</string>
+    <string name="organiser_title">Organiser</string>
+    <string name="category_title">Category</string>
+    <string name="start_date_title">Start date</string>
+    <string name="short_description_title">Short description</string>
+    <string name="show_detail_title">Show detail</string>
+     
     
     <!-- Add event tab. -->
     <string name="add_tab_name">Add event</string>

@@ -1,133 +1,171 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
     android:paddingTop="10dip" >
 
-    <FrameLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:stretchColumns="1" >
 
-        <LinearLayout 
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:orientation="vertical" >
+        <TableRow >
 
-            <TableLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:stretchColumns="1" >
+            <Button
+                android:id="@+id/pick_from_date"
+                android:text="@string/from_date" />
 
-                <TableRow >
+            <TextView
+                android:id="@+id/from_date"
+                android:gravity="center_vertical|left"
+                android:maxLines="1"
+                android:paddingLeft="10dip" >
+            </TextView>
+        </TableRow>
 
-                    <Button
-                        android:id="@+id/pick_from_date"
-                        android:text="@string/from_date" />
+        <TableRow >
 
-                    <TextView
-                        android:id="@+id/from_date"
-                        android:gravity="center_vertical|left"
-                        android:maxLines="1"
-                        android:paddingLeft="10dip" >
-                    </TextView>
-                </TableRow>
+            <Button
+                android:id="@+id/pick_to_date"
+                android:text="@string/to_date" />
 
-                <TableRow >
+            <TextView
+                android:id="@+id/to_date"
+                android:gravity="center_vertical|left"
+                android:maxLines="1"
+                android:paddingLeft="10dip" >
+            </TextView>
+        </TableRow>
 
-                    <Button
-                        android:id="@+id/pick_to_date"
-                        android:text="@string/to_date" />
+        <TableRow >
 
-                    <TextView
-                        android:id="@+id/to_date"
-                        android:gravity="center_vertical|left"
-                        android:maxLines="1"
-                        android:paddingLeft="10dip" >
-                    </TextView>
-                </TableRow>
-
-                <TableRow >
-
-                    <TextView
-                        android:id="@+id/text_view_organiser"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="right|center_vertical"
-                        android:paddingRight="5dip"
-                        android:text="@string/organiser"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-                    <EditText
-                        android:id="@+id/organiser_text"
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_gravity="left|center_vertical"
-                        android:singleLine="true"
-                        android:maxLines="1"
-                        android:inputType="text" >
-                    </EditText>
-                </TableRow>
-
-                <TableRow >
-
-                    <TextView
-                        android:id="@+id/text_view_description"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="right|center_vertical"
-                        android:paddingRight="5dip"
-                        android:text="@string/description"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-                    <EditText
-                        android:id="@+id/description_text"
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_gravity="left|center_vertical"
-                        android:singleLine="false"
-                        android:maxLines="3"
-                        android:inputType="text" >
-                    </EditText>
-                </TableRow>
-
-                <TableRow >
-
-                    <Button
-                        android:id="@+id/find_button"
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        android:layout_span="2"
-                        android:background="#36B342"
-                        android:layout_marginTop="10dip"
-                        android:gravity="center_vertical|center_horizontal"
-                        android:text="@string/find_button_text"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:textColor="#FF0000" />
-                </TableRow>
-            </TableLayout>
-        
-     <!--     <TextView
-                android:id="@+id/finded_events_title"
-                android:layout_width="fill_parent"
+            <TextView
+                android:id="@+id/text_view_organiser"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="30dip"
-                android:gravity="center_vertical|center_horizontal"
-                android:text="@string/list_events_title"
-                android:textColor="#FFFF00"
-                android:textAppearance="?android:attr/textAppearanceMedium" /> -->
-            <View
-                android:layout_width="fill_parent"
-				android:layout_height="4dip"
-				android:layout_marginTop="15dip"
-				android:background="#FFFFFF" />
-            
-            <ListView
-                android:id="@+id/finded_events_list"
-                android:layout_width="fill_parent"
-                android:layout_height="419dp"
-                android:padding="10dip" />
-        </LinearLayout>
-        
-    </FrameLayout>
+                android:layout_gravity="right|center_vertical"
+                android:paddingRight="5dip"
+                android:text="@string/organiser"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
-</ScrollView>
+            <EditText
+                android:id="@+id/organiser_text"
+                android:layout_width="0dp"
+                android:layout_gravity="left|center_vertical"
+                android:layout_weight="1"
+                android:inputType="text"
+                android:maxLines="1"
+                android:singleLine="true" >
+            </EditText>
+        </TableRow>
+
+        <TableRow >
+
+            <TextView
+                android:id="@+id/text_view_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|center_vertical"
+                android:paddingRight="5dip"
+                android:text="@string/description"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/description_text"
+                android:layout_width="0dp"
+                android:layout_gravity="left|center_vertical"
+                android:layout_weight="1"
+                android:inputType="text"
+                android:maxLines="3"
+                android:singleLine="false" >
+            </EditText>
+        </TableRow>
+
+        <TableRow >
+
+            <Button
+                android:id="@+id/find_button"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_marginTop="10dip"
+                android:layout_span="2"
+                android:background="#36B342"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="@string/find_button_text"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#FF0000" />
+        </TableRow>
+    </TableLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="4dip"
+        android:layout_marginTop="15dip"
+        android:background="#FFFFFF" />
+
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dip" >
+
+        <TableRow >
+
+            <TextView
+                android:id="@+id/c1"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:paddingRight="10dip"
+                android:text="@string/organiser_title"
+                android:textColor="#00C000"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/c2"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:paddingRight="10dip"
+                android:text="@string/category_title"
+                android:textColor="#00C000"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/c3"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:paddingRight="10dip"
+                android:text="@string/start_date_title"
+                android:textColor="#00C000"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/c4"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:paddingRight="10dip"
+                android:text="@string/short_description_title"
+                android:textColor="#00C000"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/c5"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:text="@string/show_detail_title"
+                android:textColor="#00C000"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+        </TableRow>
+    </TableLayout>
+
+    <ListView
+        android:id="@+id/finded_events_list"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:padding="10dip" />
+
+</LinearLayout>
