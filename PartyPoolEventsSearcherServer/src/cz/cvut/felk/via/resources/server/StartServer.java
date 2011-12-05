@@ -15,6 +15,7 @@ public class StartServer extends Application {
 		Router router = new Router(getContext());
 		router.attachDefault(new Directory(getContext(), "war:///"));
 		router.attach("/events", EventResourceImpl.class);
+		router.attach("/refreshCvutEvents", UpdateCvutEventsImpl.class);
 		
 		return router;
 	}

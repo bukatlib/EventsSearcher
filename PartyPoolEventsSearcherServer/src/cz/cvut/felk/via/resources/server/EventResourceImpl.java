@@ -32,30 +32,7 @@ public class EventResourceImpl extends ServerResource implements EventResource {
 		Xom xom = new Xom();
 		ArrayList<Event> events = xom.getCVUTEvents();
 		logger.log(Level.INFO,events.toString());
-		/*ArrayList<Event> events2 = new ArrayList();
-		for (int i = 0; i < 8; ++i)	{
-			events2.add(events.get(i));
-		//	events.add(new Event());
-		}*/
-	//	events.addAll(events2);
-	/*	Event e = events.get(0);
-		events.clear();
-		events.add(e);*/
 		return events;
-     /*   ArrayList<Event> ret = new ArrayList<Event>();
-        Event e = new Event();
-        e.setCategory("sport");
-        e.setEventOrganiser("CVUT");
-        e.setId(null);
-        e.setLatitude(null);
-        e.setLongitude(null);
-        e.setLongDescription(null);
-        e.setShortDescription("Super sport event.");
-        e.setStartEvent(new Date(2012,10,1));
-        e.setStopEvent(null);
-        e.setComments(null);
-        ret.add(e);
-		return ret;		*/
 	}
 	
 	@Post
@@ -75,7 +52,7 @@ public class EventResourceImpl extends ServerResource implements EventResource {
 		test = null;
 		return 1;
 	}
-
+	
 	/**
 	 * Get parameters from URL.
 	 * @return HashMap of parameters (parameterName -> value).

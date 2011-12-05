@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cronentries>
+  <cron>
+    <url>/refreshCvutEvents</url>
+    <description>Check new CVUT events.</description>
+  <!--  <schedule>every day 03:00</schedule> -->
+  	<schedule>every 1 minutes</schedule>
+    <timezone>Europe/Prague</timezone>
+    <target>1</target>
+  </cron>
+</cronentries>
