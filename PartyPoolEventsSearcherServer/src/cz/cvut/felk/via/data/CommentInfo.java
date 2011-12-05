@@ -3,41 +3,33 @@ package cz.cvut.felk.via.data;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.jdo.annotations.PersistenceCapable;
-import javax.jdo.annotations.Persistent;
-
 /**
  * Store one user comment.
  * @author Libor Bukata
  */
-@PersistenceCapable
+
 public class CommentInfo implements Serializable {
+	
 	private static final long serialVersionUID = 46783577647L;
 
-	@Persistent
-    private static String comment;
-
-    @Persistent
-    private static String userNick;
-    
-    @Persistent
+    private String comment;
+    private String userNick;
     private Date timeStamp;
 
-    
-	public static String getComment() {
+	public String getComment() {
 		return comment;
 	}
 
-	public static void setComment(String comment) {
-		CommentInfo.comment = comment;
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 
-	public static String getUserNick() {
+	public String getUserNick() {
 		return userNick;
 	}
 
-	public static void setUserNick(String userNick) {
-		CommentInfo.userNick = userNick;
+	public void setUserNick(String userNick) {
+		this.userNick = userNick;
 	}
 
 	public Date getTimeStamp() {

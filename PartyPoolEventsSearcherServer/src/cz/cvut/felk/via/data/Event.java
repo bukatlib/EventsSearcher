@@ -4,51 +4,24 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-import javax.jdo.annotations.IdGeneratorStrategy;
-import javax.jdo.annotations.PersistenceCapable;
-import javax.jdo.annotations.Persistent;
-import javax.jdo.annotations.PrimaryKey;
-
 /**
  * @author Libor Bukata
  * Base data class of event.
  */
-@PersistenceCapable
 public class Event implements Serializable {
 
 	private static final long serialVersionUID = 4674383743754L;
-
-    @PrimaryKey
-    @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-    private Long id;
 	
-    @Persistent
+    private Long id;
     private String eventOrganiser;
-    
-    @Persistent
     private String category;
-    
-    @Persistent
     private String shortDescription;
-    
-    @Persistent
     private String longDescription;
-     
-    @Persistent
     private Date startEvent;
-    
-    @Persistent
     private Date stopEvent;
-    
-    @Persistent
     private Long latitude;
-    
-    @Persistent
     private Long longitude;
-    
-    @Persistent
     private ArrayList<CommentInfo> comments;
-
     
 	public Long getId() {
 		return id;

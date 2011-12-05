@@ -11,27 +11,17 @@ import java.util.Date;
 public class Event implements Serializable {
 
 	private static final long serialVersionUID = 4674383743754L;
-
+	
     private Long id;
-
     private String eventOrganiser;
-    
     private String category;
-
     private String shortDescription;
-
     private String longDescription;
-
     private Date startEvent;
-
     private Date stopEvent;
-
     private Long latitude;
-
     private Long longitude;
-
     private ArrayList<CommentInfo> comments;
-
     
 	public Long getId() {
 		return id;

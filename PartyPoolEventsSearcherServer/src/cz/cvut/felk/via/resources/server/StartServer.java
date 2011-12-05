@@ -5,6 +5,9 @@ import org.restlet.Restlet;
 import org.restlet.resource.Directory;
 import org.restlet.routing.Router;
 
+import cz.cvut.felk.via.resources.implement.EventResourceImpl;
+import cz.cvut.felk.via.resources.implement.UpdateCvutEventsImpl;
+
 /**
  * Start server and assign REST URL's.
  * @author Libor Bukata
