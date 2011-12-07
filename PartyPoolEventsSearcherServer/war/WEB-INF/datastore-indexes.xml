@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<datastore-indexes autoGenerate="false">
+	<datastore-index kind="CommentInfoJDO" ancestor="true" source="manual">
+		<property name="timeStamp" direction="asc" />
+	</datastore-index>
+</datastore-indexes>

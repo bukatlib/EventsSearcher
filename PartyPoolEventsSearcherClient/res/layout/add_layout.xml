@@ -28,6 +28,27 @@
                 android:prompt="@string/category_description" />
         </TableRow>        
         
+        <TableRow>
+            <TextView
+                android:id="@+id/add_text_view_organiser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|center_vertical"
+                android:padding="10dip"
+                android:text="@string/organiser"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/add_organiser_text"
+                android:layout_width="0dp"
+                android:layout_gravity="left|center_vertical"
+                android:layout_weight="1"
+                android:inputType="text"
+                android:maxLines="1"
+                android:singleLine="true" >
+            </EditText>
+        </TableRow>            
+            
         <TableRow >
 
             <TextView

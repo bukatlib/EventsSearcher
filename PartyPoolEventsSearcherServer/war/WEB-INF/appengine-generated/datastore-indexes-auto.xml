@@ -1,4 +1,10 @@
-<!-- Indices written at Mon, 5 Dec 2011 15:26:34 UTC -->
+<!-- Indices written at Wed, 7 Dec 2011 15:28:49 UTC -->
 
-<datastore-indexes/>
+<datastore-indexes>
 
+    <!-- Used 27 times in query history -->
+    <datastore-index kind="CommentInfoJDO" ancestor="true" source="auto">
+        <property name="comments_INTEGER_IDX" direction="asc"/>
+    </datastore-index>
+
+</datastore-indexes>

@@ -1,5 +1,8 @@
 package cz.cvut.felk.via.android;
 
+import java.util.Map;
+import java.util.Set;
+
 import org.restlet.resource.ClientResource;
 
 import cz.cvut.felk.via.resources.EventResource;
@@ -30,6 +33,13 @@ public class RestConnection {
 			setClientResource(null); setEventResource(null);
         	Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
         }       			
+	}
+	
+	public void addQueries(final Map<String,String> queries)	{
+		Set<String> keys = queries.keySet();
+		for (String key : keys)	{
+			clientResource.addQueryParameter(key, queries.get(key));
+		}
 	}
 
 	public void setClientResource(ClientResource clientResource) {

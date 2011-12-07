@@ -1,8 +1,10 @@
 package cz.cvut.felk.via.datalayer;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -10,6 +12,9 @@ import javax.jdo.Query;
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
+
+import cz.cvut.felk.via.data.CommentInfo;
+import cz.cvut.felk.via.data.Event;
 
 public class DatabaseHandler {
 	
@@ -51,15 +56,89 @@ public class DatabaseHandler {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public ArrayList<EventJDO> searchEvents(Map<String, String> parameters)	{
+	public ArrayList<Event> searchEvents(Map<String, String> queryParameters)	{
 		logger.log(Level.INFO,"searchEvents called");
 		PersistenceManager pm = null;
-		ArrayList<EventJDO> foundEvents = null;
+		ArrayList<Event> foundEvents = new ArrayList<Event>();
 		try {
 			pm = pmFactory.getPersistenceManager();
-		//	Query newQuery = pm.newQuery("SELECT FROM EventJDO WHERE "+query);		
-		//	List<EventJDO> result = (List<EventJDO>) newQuery.execute();
-		//	foundEvents = new ArrayList(result);
+			Query query = pm.newQuery(EventJDO.class);
+			
+			int counter = 0;
+			StringBuilder stringQuery = new StringBuilder();
+			StringBuilder declaredParameters = new StringBuilder();
+			ArrayList<Object> parameters = new ArrayList<Object>();
+			
+			Set<String> keys = queryParameters.keySet();
+			for (String key : keys)	{
+				if (key.equals("startEvent") || key.equals("stopEvent"))		{
+					addParameter(stringQuery, declaredParameters, key, "Date", counter++);
+					parameters.add(new SimpleDateFormat("dd.MM.yyyy").parse(queryParameters.get(key)));					
+				}
+			}
+			if (stringQuery.length() != 0)	{
+				query.setFilter(stringQuery.toString());
+				query.declareParameters(declaredParameters.toString());
+			}
+			query.declareImports("import com.google.appengine.api.datastore.Text; import java.util.Date;");	
+			List<EventJDO> result = (List<EventJDO>) query.executeWithArray(parameters.toArray());
+	
+			boolean checkEventOrganiser = queryParameters.containsKey("eventOrganiser");
+			boolean checkCategory = queryParameters.containsKey("category");
+			boolean checkDescription = queryParameters.containsKey("description");
+			
+			for (EventJDO e : result)	{
+				boolean addEvent = true;
+				if (checkEventOrganiser)	{
+					if (!(e.getEventOrganiser() != null && e.getEventOrganiser().contains(queryParameters.get("eventOrganiser"))))	{
+						addEvent = false;
+					}
+				}
+				if (checkCategory)	{
+					if (!(e.getCategory() != null && e.getCategory().contains(queryParameters.get("category"))))	{
+						addEvent = false;
+					}
+				}
+				if (checkDescription)	{
+					boolean shortOk = true;
+					boolean longOk = true;
+					if (!(e.getShortDescription() != null && e.getShortDescription().getValue().contains(queryParameters.get("description"))))	{
+						shortOk = false;
+					}
+					if (!(e.getLongDescription() != null && e.getLongDescription().getValue().contains(queryParameters.get("description"))))	{
+						longOk = false;
+					}
+					if (!shortOk && !longOk)	{
+						addEvent = false;
+					}
+				}
+				
+				if (addEvent == true)	{
+					Event newEvent = new Event();
+					newEvent.setId(e.getId());
+					newEvent.setEventOrganiser(e.getEventOrganiser());
+					newEvent.setCategory(e.getCategory());
+					newEvent.setShortDescription(e.getShortDescription().getValue());
+					newEvent.setLongDescription(e.getLongDescription().getValue());
+					newEvent.setStartEvent(e.getStartEvent());
+					newEvent.setStopEvent(e.getStopEvent());
+					newEvent.setLatitude(e.getLatitude());
+					newEvent.setLongitude(e.getLongitude());
+					if (e.getComments() != null)	{
+						ArrayList<CommentInfo> comments = new ArrayList<CommentInfo>();
+						for (CommentInfoJDO c : e.getComments())	{
+							CommentInfo ci = new CommentInfo();
+							ci.setUserNick(c.getUserNick());
+							ci.setTimeStamp(c.getTimeStamp());
+							ci.setComment(c.getComment().getValue());
+							comments.add(ci);
+						}
+						newEvent.setComments(comments);
+					}
+					foundEvents.add(newEvent);
+				}
+			}
+
 		} catch (Exception ex)	{
 			logger.log(Level.SEVERE, "searchEvents exception: "+ex.getMessage());
 			return null;
@@ -82,7 +161,6 @@ public class DatabaseHandler {
 			query.declareImports("import com.google.appengine.api.datastore.Text; import java.util.Date;");
 			Object[] parameters = { e.getEventOrganiser(), e.getCategory(), e.getShortDescription().getValue(), e.getStartEvent() };
 			List<EventJDO> result = (List<EventJDO>) query.executeWithArray(parameters);
-			pm.close();
 			if (result.isEmpty())	{
 				return false;
 			} else {
@@ -106,5 +184,11 @@ public class DatabaseHandler {
 		return false;
 	}
 	
+	private void addParameter(StringBuilder stringQuery, StringBuilder declaredParameters, String param, String type, int counter)	{
+		stringQuery.append(stringQuery.length() == 0 ? "" : " && ");
+		stringQuery.append("startEvent"+" "+(param.equals("startEvent") ? ">=" : "<=")+" p"+counter);			
+		declaredParameters.append(declaredParameters.length() == 0 ? "" : ", ");
+		declaredParameters.append(type+" p"+counter);
+	}
 	
 }

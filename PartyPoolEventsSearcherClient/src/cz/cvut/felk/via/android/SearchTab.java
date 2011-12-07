@@ -1,8 +1,11 @@
 package cz.cvut.felk.via.android;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import cz.cvut.felk.via.data.Event;
 import cz.cvut.felk.via.resources.EventResource;
@@ -30,6 +33,7 @@ public class SearchTab extends Fragment implements OnClickListener, Runnable {
 
 	private Date fromDate, toDate;
 	private ArrayList<Event> foundEvents = new ArrayList<Event>();	
+	private Map<String, String> queryParameters = null;
 	
 	private ListView listView;
 	
@@ -62,7 +66,7 @@ public class SearchTab extends Fragment implements OnClickListener, Runnable {
 			public void onClick(View v) {
 				int year, month, day;
 				if (fromDate != null)	{
-					year = fromDate.getYear();
+					year = fromDate.getYear()+1900;
 					month = fromDate.getMonth();
 					day = fromDate.getDate();
 				} else {
@@ -119,14 +123,14 @@ public class SearchTab extends Fragment implements OnClickListener, Runnable {
 	
 	private DatePickerDialog.OnDateSetListener mDateSetListener1 = new DatePickerDialog.OnDateSetListener() {
 		public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-			fromDate = new Date(year, monthOfYear, dayOfMonth);
+			fromDate = new Date(year-1900, monthOfYear, dayOfMonth);
 			updateDateText(fromDate,1);
 		}
 	};
 
 	private DatePickerDialog.OnDateSetListener mDateSetListener2 = new DatePickerDialog.OnDateSetListener() {
 		public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-			toDate = new Date(year, monthOfYear, dayOfMonth);
+			toDate = new Date(year-1900, monthOfYear, dayOfMonth);
 			updateDateText(toDate,2);			
 		}
 	};
@@ -142,12 +146,36 @@ public class SearchTab extends Fragment implements OnClickListener, Runnable {
 			break;
 		}
 		
-		dateLabel.setText(date.getDate()+"."+(date.getMonth()+1)+"."+date.getYear());
+		dateLabel.setText(new SimpleDateFormat("dd.MM.yyyy").format(date));
 	}
 
 	@Override
 	public void onClick(View v) {
-	//	Toast.makeText(this.getActivity(), "Find button clicked!", Toast.LENGTH_LONG).show();
+		// Get all query parameters.
+		foundEvents = new ArrayList<Event>();
+		queryParameters = new HashMap<String,String>();
+		View qp = this.getView();
+		if (fromDate != null)
+			queryParameters.put("startEvent", new SimpleDateFormat("dd.MM.yyyy").format(fromDate));
+		if (toDate != null)
+			queryParameters.put("stopEvent", new SimpleDateFormat("dd.MM.yyyy").format(toDate));
+		EditText organiser = (EditText) qp.findViewById(R.id.organiser_text);
+		EditText description = (EditText) qp.findViewById(R.id.description_text);
+		if (organiser.getText().length() > 0)
+			queryParameters.put("eventOrganiser", organiser.getText().toString());
+		if (description.getText().length() > 0)
+			queryParameters.put("description", description.getText().toString());
+		TextView fromDateView = (TextView) qp.findViewById(R.id.from_date);
+		TextView toDateView = (TextView) qp.findViewById(R.id.to_date);
+		
+		// Clear previous content.
+		fromDate = toDate = null;
+		organiser.getText().clear();
+		description.getText().clear();
+		fromDateView.setText(""); toDateView.setText("");
+		listView.setAdapter(null);
+		
+		// Run new query thread.
 		Thread findEvents = new Thread(this);
         findEvents.start();
 	}	
@@ -163,30 +191,27 @@ public class SearchTab extends Fragment implements OnClickListener, Runnable {
 		
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-			View row;
-			if (convertView == null)	{
-				LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-				row = inflater.inflate(R.layout.event_row, null);
-				Button btn = (Button) row.findViewById(R.id.row_show_detail);
-				btn.setId(position);
-				btn.setOnClickListener(new View.OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						Toast.makeText(context, "Hello!", Toast.LENGTH_LONG).show();
-					}
-				});
-				if (position < foundEvents.size())	{
-					TextView organiser = (TextView) row.findViewById(R.id.row_organiser);
-					organiser.setText(foundEvents.get(position).getEventOrganiser());
-					TextView category = (TextView) row.findViewById(R.id.row_category);
-					category.setText(foundEvents.get(position).getCategory());
-					TextView startDate = (TextView) row.findViewById(R.id.row_start_date);
-					startDate.setText(foundEvents.get(position).getStartEvent().toLocaleString());
-					TextView shortDescription = (TextView) row.findViewById(R.id.row_short_desc);
-					shortDescription.setText(foundEvents.get(position).getShortDescription());
+			LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			View row = inflater.inflate(R.layout.event_row, null);
+			
+			Button btn = (Button) row.findViewById(R.id.row_show_detail);
+			btn.setId(position);
+			btn.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					Toast.makeText(context, "Hello " + v.getId() + "!", Toast.LENGTH_SHORT).show();
 				}
-			} else {
-				row = convertView;
+			});
+			
+			if (position < foundEvents.size()) {
+				TextView organiser = (TextView) row.findViewById(R.id.row_organiser);
+				organiser.setText(foundEvents.get(position).getEventOrganiser());
+				TextView category = (TextView) row.findViewById(R.id.row_category);
+				category.setText(foundEvents.get(position).getCategory());
+				TextView startDate = (TextView) row.findViewById(R.id.row_start_date);
+				startDate.setText(new SimpleDateFormat("dd.MM.yyyy").format(foundEvents.get(position).getStartEvent()));
+				TextView shortDescription = (TextView) row.findViewById(R.id.row_short_desc);
+				shortDescription.setText(foundEvents.get(position).getShortDescription());
 			}
 			
 			return row;
@@ -204,6 +229,7 @@ public class SearchTab extends Fragment implements OnClickListener, Runnable {
 	public void run() {
         RestConnection connection = new RestConnection(this.getActivity());
         connection.createClientResource();
+        connection.addQueries(queryParameters);
         EventResource resource = connection.getEventResource();
         if (resource != null)	{
         	foundEvents = resource.findEvents();

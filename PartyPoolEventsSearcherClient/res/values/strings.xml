@@ -34,5 +34,8 @@
     <string name="long_description">Details of event:</string>
     <string name="add_event_button">Add event to database!</string>
     <string name="show_detail">Show details</string>
+    <string name="error_data">Please fill all required records!</string>
+    <string name="add_event_ok">Event was successfully added!</string>
+    <string name="add_event_fail">Error while adding new event to DB!</string>
     
 </resources>
