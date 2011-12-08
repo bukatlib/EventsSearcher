@@ -156,16 +156,17 @@ public class DatabaseHandler {
 		try {
 			pm = pmFactory.getPersistenceManager();
 			Query query = pm.newQuery(EventJDO.class);
-			query.setFilter("eventOrganiser == p1 && category == p2 && shortDescription == p3 && startEvent == p4");
-			query.declareParameters("String p1, String p2, String p3, Date p4");
+			query.setFilter("eventOrganiser == p1 && category == p2 && startEvent == p3");
+			query.declareParameters("String p1, String p2, Date p3");
 			query.declareImports("import com.google.appengine.api.datastore.Text; import java.util.Date;");
-			Object[] parameters = { e.getEventOrganiser(), e.getCategory(), e.getShortDescription().getValue(), e.getStartEvent() };
+			Object[] parameters = { e.getEventOrganiser(), e.getCategory(), e.getStartEvent() };
 			List<EventJDO> result = (List<EventJDO>) query.executeWithArray(parameters);
-			if (result.isEmpty())	{
-				return false;
-			} else {
-				return true;
+			for (EventJDO fe : result)	{
+				if (fe.getShortDescription().getValue().contains(e.getShortDescription().getValue()))	{
+					return true;
+				}
 			}
+			return false;
 		} catch (Exception ex)	{
 			logger.log(Level.SEVERE, "isCvutEventRecorded exception: "+ex.getMessage());
 			return true;
