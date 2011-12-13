@@ -17,16 +17,27 @@ public class UpdateCvutEventsImpl extends ServerResource implements UpdateCvutEv
 
 	private static final Logger logger = Logger.getLogger(UpdateCvutEventsImpl.class.getName());	
 	
+	static String[] addresses={"http://akce.cvut.cz/?node=rss&group=0",
+		"http://www.fel.cvut.cz/events/akce.xml",
+		"http://akce.cvut.cz/?node=rss&group=5",
+		"http://akce.cvut.cz/?node=rss&group=7",
+		"http://akce.cvut.cz/?node=rss&group=8",
+		"http://akce.cvut.cz/?node=rss&group=9",
+		"http://akce.cvut.cz/?node=rss&group=10",
+		"https://akce.cvut.cz/?node=rss&group=11"};	
+	
 	@Override
 	@Get
 	public void refreshCvutEvents() {
 		logger.log(Level.INFO,"Starting to refresh cvut events...");
-		Xom xom = new Xom();
-		ArrayList<Event> events = xom.getCVUTEvents();
-		DatabaseHandler dbHandler = new DatabaseHandler();
-		for (Event e : events) {
-			if (!dbHandler.isCvutEventRecorded(new EventJDO(e)))	{
-				dbHandler.addEvent(new EventJDO(e));
+		for (int i = 0; i < addresses.length; ++i) {
+			Xom xom = new Xom();
+			ArrayList<Event> events = xom.getCVUTEvents(addresses[i]);
+			DatabaseHandler dbHandler = new DatabaseHandler();
+			for (Event e : events) {
+				if (!dbHandler.isCvutEventRecorded(new EventJDO(e))) {
+					dbHandler.addEvent(new EventJDO(e));
+				}
 			}
 		}
 		logger.log(Level.INFO,"Cvut events refresh completed...");

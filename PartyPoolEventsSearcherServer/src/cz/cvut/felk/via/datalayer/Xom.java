@@ -82,24 +82,22 @@ public class Xom extends DefaultHandler {
         return this.EventsList;
     }
 
-    public ArrayList<Event> getCVUTEvents()  {
-        Xom myParser = new Xom();
+    public ArrayList<Event> getCVUTEvents(String xmlUrl)  {
         try {
-
-            URL url = new URL("http://akce.cvut.cz/?node=rss&group=0");
+            URL url = new URL(xmlUrl);
             InputStream in = url.openStream();
 
             // Create SAX 2 parser...
             XMLReader xr = XMLReaderFactory.createXMLReader();
 
             // Set the ContentHandler...
-            xr.setContentHandler(myParser);
+            xr.setContentHandler(this);
             // Parse the file...
             xr.parse(new InputSource(in));
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return myParser.getEvents();
+        return this.getEvents();
     }
 }
