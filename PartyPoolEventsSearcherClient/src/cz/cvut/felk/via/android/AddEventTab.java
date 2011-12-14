@@ -4,7 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import cz.cvut.felk.via.android.SearchTab.EventAdapter;
 import cz.cvut.felk.via.data.Event;
 import cz.cvut.felk.via.resources.EventResource;
 
@@ -15,6 +14,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -192,17 +192,21 @@ public class AddEventTab extends Fragment implements OnClickListener, Runnable {
 	
 	@Override
 	public void run() {
-        RestConnection connection = new RestConnection(this.getActivity());
-        connection.createClientResource();
-        EventResource resource = connection.getEventResource();
-        if (resource != null)	{
-        	if (resource.addEvent(addEvent))	{
-        		addWithoutErrors = true;
-        	} else {
-        		addWithoutErrors = false;
-        	}
-        	
-            handler.sendMessage(handler.obtainMessage());
-        }		
+		try {
+			RestConnection connection = new RestConnection(this.getActivity());
+			connection.createClientResource();
+			EventResource resource = connection.getEventResource();
+			if (resource != null) {
+				if (resource.addEvent(addEvent)) {
+					addWithoutErrors = true;
+				} else {
+					addWithoutErrors = false;
+				}
+
+				handler.sendMessage(handler.obtainMessage());
+			}
+		} catch (Exception e) {
+			Log.e("AddEventTab", "Connection error: "+e.getMessage());
+		}
 	}
 }

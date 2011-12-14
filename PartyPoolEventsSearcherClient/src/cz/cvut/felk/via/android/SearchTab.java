@@ -10,9 +10,11 @@ import java.util.Map;
 import cz.cvut.felk.via.data.Event;
 import cz.cvut.felk.via.resources.EventResource;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -27,7 +29,6 @@ import android.widget.DatePicker;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.EditText;
-import android.widget.Toast;
 
 public class SearchTab extends Fragment implements OnClickListener, Runnable {
 
@@ -199,7 +200,16 @@ public class SearchTab extends Fragment implements OnClickListener, Runnable {
 			btn.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					Toast.makeText(context, "Hello " + v.getId() + "!", Toast.LENGTH_SHORT).show();
+					AlertDialog alertDialog = new AlertDialog.Builder(context).create();
+					alertDialog.setTitle(context.getResources().getString(R.string.alert_detail));
+					alertDialog.setMessage(foundEvents.get(v.getId()).getLongDescription());
+					alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+					   public void onClick(DialogInterface dialog, int which) {
+					      // here you can add functions
+					   }
+					});
+					alertDialog.show();					
+				//	Toast.makeText(context, "Hello " + v.getId() + "!", Toast.LENGTH_SHORT).show();
 				}
 			});
 			
@@ -227,15 +237,19 @@ public class SearchTab extends Fragment implements OnClickListener, Runnable {
 
 	@Override
 	public void run() {
-        RestConnection connection = new RestConnection(this.getActivity());
-        connection.createClientResource();
-        connection.addQueries(queryParameters);
-        EventResource resource = connection.getEventResource();
-        if (resource != null)	{
-        	foundEvents = resource.findEvents();
-            if (foundEvents != null)	{
-            	handler.sendMessage(handler.obtainMessage());
-            }
-        }
+		try {
+			RestConnection connection = new RestConnection(this.getActivity());
+			connection.createClientResource();
+			connection.addQueries(queryParameters);
+			EventResource resource = connection.getEventResource();
+			if (resource != null) {
+				foundEvents = resource.findEvents();
+				if (foundEvents != null) {
+					handler.sendMessage(handler.obtainMessage());
+				}
+			}
+		} catch (Exception e) {
+			Log.e("SearchTab", "Connection error: "+e.getMessage());
+		}
 	}
 }

@@ -59,33 +59,34 @@ public final class R {
         public static final int search_layout=0x7f030002;
     }
     public static final class string {
-        public static final int add_event_button=0x7f040015;
-        public static final int add_event_fail=0x7f040019;
-        public static final int add_event_ok=0x7f040018;
+        public static final int add_event_button=0x7f040016;
+        public static final int add_event_fail=0x7f04001a;
+        public static final int add_event_ok=0x7f040019;
         /**  Add event tab. 
          */
-        public static final int add_tab_name=0x7f04000d;
+        public static final int add_tab_name=0x7f04000e;
+        public static final int alert_detail=0x7f04000d;
         public static final int app_name=0x7f040000;
-        public static final int category_description=0x7f04000e;
+        public static final int category_description=0x7f04000f;
         public static final int category_title=0x7f040009;
         public static final int description=0x7f040005;
-        public static final int error_data=0x7f040017;
-        public static final int event_start=0x7f040011;
-        public static final int event_stop=0x7f040012;
+        public static final int error_data=0x7f040018;
+        public static final int event_start=0x7f040012;
+        public static final int event_stop=0x7f040013;
         public static final int find_button_text=0x7f040006;
         public static final int from_date=0x7f040002;
         public static final int list_events_title=0x7f040007;
-        public static final int long_description=0x7f040014;
+        public static final int long_description=0x7f040015;
         public static final int organiser=0x7f040004;
         public static final int organiser_title=0x7f040008;
-        public static final int pick_date=0x7f04000f;
-        public static final int pick_time=0x7f040010;
+        public static final int pick_date=0x7f040010;
+        public static final int pick_time=0x7f040011;
         /**  Search events tab. 
          */
         public static final int search_tab_name=0x7f040001;
-        public static final int short_description=0x7f040013;
+        public static final int short_description=0x7f040014;
         public static final int short_description_title=0x7f04000b;
-        public static final int show_detail=0x7f040016;
+        public static final int show_detail=0x7f040017;
         public static final int show_detail_title=0x7f04000c;
         public static final int start_date_title=0x7f04000a;
         public static final int to_date=0x7f040003;
