@@ -80,6 +80,8 @@ public class DatabaseHandler {
 				query.setFilter(stringQuery.toString());
 				query.declareParameters(declaredParameters.toString());
 			}
+			query.setRange(0, 100);			
+			query.setOrdering("startEvent asc");
 			query.declareImports("import com.google.appengine.api.datastore.Text; import java.util.Date;");	
 			List<EventJDO> result = (List<EventJDO>) query.executeWithArray(parameters.toArray());
 	

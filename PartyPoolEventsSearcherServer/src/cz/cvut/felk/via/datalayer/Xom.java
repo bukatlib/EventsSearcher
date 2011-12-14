@@ -65,7 +65,10 @@ public class Xom extends DefaultHandler {
         }
 
         if (localName.equals("description")) {
-            currentEvent.setLongDescription(contents.toString());
+        	String tmp = contents.toString();
+            tmp=tmp.replace("<p><em>"," ");
+            tmp=tmp.replace("</em></p>", " ");
+            currentEvent.setLongDescription(tmp);
         }
 
         if (localName.equals("category")) {
